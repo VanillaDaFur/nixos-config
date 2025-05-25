@@ -1,9 +1,9 @@
 {
   programs.zen-browser = {
     enable = true;
-		policies = {
+    policies = {
       DisableAppUpdate = true;
       DisableTelemetry = true;
-		};
-	};
+    };
+  };
 }

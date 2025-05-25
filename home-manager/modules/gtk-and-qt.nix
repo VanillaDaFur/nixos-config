@@ -10,7 +10,7 @@
     iconTheme = {
       package = pkgs.catppuccin-papirus-folders.override {
         flavor = "mocha";
-				accent = "mauve";
+	accent = "mauve";
       };
       name = "Papirus-Dark";
     };
@@ -19,10 +19,10 @@
       name = "catppuccin-mocha-mauve-standard+rimless,normal";
     };
 
-		font = {
-			name = "Readex Pro";
-			size = 11;
-		};
+    font = {
+      name = "Readex Pro";
+      size = 11;
+    };
   };
 
   qt = {
@@ -32,8 +32,8 @@
     ];
     platformTheme.name = "qtct";
   };
-	home.file = {
-		".local/share/icons/Papirus".source =
-		 "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus";
+  home.file = {
+    ".local/share/icons/Papirus".source =
+     "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus";
   };
 }

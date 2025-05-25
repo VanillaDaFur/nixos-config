@@ -1,16 +1,16 @@
 { config, pkgs, ... }: {
   home = {
-	  # Important
+    # Important
     username      = "Vanilla";
     homeDirectory = "/home/Vanilla";
     
-		# Packages
+    # Packages
     packages = with pkgs; [
       git
       nemo
       file-roller
       vesktop
-			eza
+      eza
     ];
 
     # Don't change without big need.
@@ -22,7 +22,7 @@
     ./modules/zsh.nix
     ./modules/gtk-and-qt.nix
     ./modules/nixvim.nix
-		./modules/zen-browser.nix
-		./modules/git.nix
+    ./modules/zen-browser.nix
+    ./modules/git.nix
   ];
 }

@@ -113,29 +113,29 @@
     dunst
     waybar
     swww
-		kitty
+    kitty
     acpi
-		btop
-		oh-my-posh
+    btop
+    oh-my-posh
     brightnessctl
-		xdg-user-dirs
-		rofi-wayland
-		polkit_gnome
-		eza
+    xdg-user-dirs
+    rofi-wayland
+    polkit_gnome
+    eza
   ];
   
-	fonts.packages = with pkgs; [
-		nerd-fonts.jetbrains-mono
-		google-fonts
-	];
+  fonts.packages = with pkgs; [
+    nerd-fonts.jetbrains-mono
+    google-fonts
+  ];
 
-	systemd = {
-  	user.services.polkit-gnome-authentication-agent-1 = {
-    	description = "polkit-gnome-authentication-agent-1";
-    	wantedBy = [ "graphical-session.target" ];
-    	wants = [ "graphical-session.target" ];
-    	after = [ "graphical-session.target" ];
-    	serviceConfig = {
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
         Restart = "on-failure";

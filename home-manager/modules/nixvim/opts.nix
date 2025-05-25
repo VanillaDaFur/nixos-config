@@ -1,7 +1,7 @@
 {
   programs.nixvim = {
     clipboard = {
-      register                 = "unnamedplus";
+      register = "unnamedplus";
       providers.wl-copy.enable = true;
     };
     opts = {
@@ -12,7 +12,10 @@
       swapfile   = false; 
 
       tabstop    = 2;
+      softtabstop = 4;
       shiftwidth = 2; 
-    };
-	};
+      expandtab = true;
+      autoindent = true;
+    }; 
+  };
 }

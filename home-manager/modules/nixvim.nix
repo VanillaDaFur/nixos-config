@@ -4,18 +4,17 @@
 
     colorschemes.catppuccin = {
       enable = true;
-
       settings = {
         transparent_background = true;
       };
     };
   };
-	imports = [
+  imports = [
     ./nixvim/plugins.nix
-		./nixvim/opts.nix
-	];
+    ./nixvim/opts.nix
+  ];
 
-	home.sessionVariables = {
+  home.sessionVariables = {
     EDITOR = "nvim";
-	};
+  };
 }
