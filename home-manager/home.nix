@@ -1,34 +1,28 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   home = {
+	  # Important
     username      = "Vanilla";
     homeDirectory = "/home/Vanilla";
-
+    
+		# Packages
     packages = with pkgs; [
       git
       nemo
       file-roller
-      firefox
-      kitty
-      rofi-wayland
-      xdg-user-dirs
-      nodejs
-      oh-my-posh
-      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      vesktop
+			eza
     ];
- 
-    sessionVariables = {
-      EDITOR = "nvim"; 
-    };
 
     # Don't change without big need.
-    stateVersion = "24.11";
+    stateVersion = "25.05";
   };
-  fonts.fontconfig.enable = true;
   
   # Import modules
   imports = [
     ./modules/zsh.nix
+    ./modules/gtk-and-qt.nix
+    ./modules/nixvim.nix
+		./modules/zen-browser.nix
+		./modules/git.nix
   ];
 }

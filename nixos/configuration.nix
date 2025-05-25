@@ -20,6 +20,9 @@
         efiSupport            = true;
         devices               = [ "nodev" ];
       };
+      efi = {
+        efiSysMountPoint      = "/boot/efi";
+      };
     };
     kernelPackages = pkgs.linuxPackages_zen;
     kernelParams = [
@@ -76,10 +79,14 @@
   # Enable sound.
   #hardware.pulseaudio.enable = true;
   # OR
-  services.pipewire = {
-    enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
+  services = {
+    gvfs.enable    = true;
+    flatpak.enable = true;
+    pipewire = {
+      enable       = true;
+      pulse.enable = true;
+      alsa.enable  = true;
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -99,7 +106,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     fastfetch
-    neovim
     wget
     curl
     nurl
@@ -107,9 +113,37 @@
     dunst
     waybar
     swww
+		kitty
     acpi
+		btop
+		oh-my-posh
     brightnessctl
+		xdg-user-dirs
+		rofi-wayland
+		polkit_gnome
+		eza
   ];
+  
+	fonts.packages = with pkgs; [
+		nerd-fonts.jetbrains-mono
+		google-fonts
+	];
+
+	systemd = {
+  	user.services.polkit-gnome-authentication-agent-1 = {
+    	description = "polkit-gnome-authentication-agent-1";
+    	wantedBy = [ "graphical-session.target" ];
+    	wants = [ "graphical-session.target" ];
+    	after = [ "graphical-session.target" ];
+    	serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -152,7 +186,7 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 
 }
 
