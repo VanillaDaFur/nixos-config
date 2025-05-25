@@ -1,1 +1,1 @@
-my very raw nixos config
+Just my nixos configuration files :3
