@@ -5,38 +5,16 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot = {
-    loader = {
-      grub = {
-        enable                = true;
-        useOSProber           = true;
-        efiInstallAsRemovable = true;
-        efiSupport            = true;
-        devices               = [ "nodev" ];
-      };
-      efi = {
-        efiSysMountPoint      = "/boot/efi";
-      };
-    };
-    kernelPackages = pkgs.linuxPackages_zen;
-    kernelParams = [
-      "quiet"
-      "splash"
-      "rd.systemd.show_status=false"
-      "rd.udev.log_level=3"
-      "udev.log_priority=3"
-    ];
-    initrd.verbose = false;
-  };
+  imports = [ 
+    ./hardware-configuration.nix  # Include the results of the hardware scan.
+    ./modules/modules.nix # Other modules
+  ];
   
-  # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes"];
+  # Allow unfree software and enable flakes
+  nixpkgs.config.allowUnfree = true;
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes"];
+  };
 
   networking.hostName = "NixOS"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -46,10 +24,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Kyiv";
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -57,40 +31,6 @@
     keyMap = "us";
   #   useXkbConfig = true; # use xkb.options in tty.
   };
-
-  programs = {
-    hyprland.enable = true;
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
-  };
-  # Configure keymap in X11
-  # services.xserver.xkb.layout = "us";
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  #hardware.pulseaudio.enable = true;
-  # OR
-  services = {
-    gvfs.enable    = true;
-    flatpak.enable = true;
-    pipewire = {
-      enable       = true;
-      pulse.enable = true;
-      alsa.enable  = true;
-    };
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.Vanilla = {
@@ -100,7 +40,14 @@
     extraGroups = [ "wheel" "audio" "video" "input" ]; # Enable ‘sudo’ for the user.
   };
 
-  # programs.firefox.enable = true;
+  # Enable steam and gamescope
+  programs = {
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
+    gamemode.enable = true;
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -120,30 +67,18 @@
     brightnessctl
     xdg-user-dirs
     rofi-wayland
+    hyprlock
+    hyprshot
+    hypridle
     polkit_gnome
     eza
+    hostname
   ];
   
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     google-fonts
   ];
-
-  systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

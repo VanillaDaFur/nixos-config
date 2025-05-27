@@ -35,5 +35,7 @@
   home.file = {
     ".local/share/icons/Papirus".source =
      "${pkgs.catppuccin-papirus-folders}/share/icons/Papirus";
+    ".local/share/fonts/truetype".source =
+     "${pkgs.google-fonts}/share/fonts/truetype";
   };
 }

@@ -10,7 +10,8 @@
       nemo
       file-roller
       vesktop
-      eza
+      firefox
+      swappy
     ];
 
     # Don't change without big need.
@@ -22,7 +23,6 @@
     ./modules/zsh.nix
     ./modules/gtk-and-qt.nix
     ./modules/nixvim.nix
-    ./modules/zen-browser.nix
     ./modules/git.nix
   ];
 }
