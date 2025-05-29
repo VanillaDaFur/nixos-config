@@ -63,13 +63,10 @@
     kitty
     acpi
     btop
-    oh-my-posh
     brightnessctl
     xdg-user-dirs
     rofi-wayland
-    hyprlock
     hyprshot
-    hypridle
     polkit_gnome
     eza
     hostname
