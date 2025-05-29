@@ -3,9 +3,6 @@
     plugins = {
       # Beautiful line
       lualine.enable          = true;
-      
-      # File browser for nvim
-      telescope.enable        = true;
 
       # Shows which colour is hidden under HEX color
       colorizer = {
@@ -55,6 +52,7 @@
           };
         };
       };
+
       treesitter = {
         enable = true;
         settings = {

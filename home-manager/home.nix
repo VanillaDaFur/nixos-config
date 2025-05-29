@@ -12,6 +12,8 @@
       vesktop
       firefox
       swappy
+      qbittorrent 
+      oh-my-posh
     ];
 
     # Don't change without big need.
@@ -20,9 +22,6 @@
   
   # Import modules
   imports = [
-    ./modules/zsh.nix
-    ./modules/gtk-and-qt.nix
-    ./modules/nixvim.nix
-    ./modules/git.nix
+    ./modules/modules.nix
   ];
 }

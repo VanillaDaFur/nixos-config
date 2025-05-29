@@ -10,12 +10,17 @@
     iconTheme = {
       package = pkgs.catppuccin-papirus-folders.override {
         flavor = "mocha";
-	accent = "mauve";
+        accent = "mauve";
       };
       name = "Papirus-Dark";
     };
 
     theme = {
+      package = pkgs.callPackage ./pkgs/catppuccin-gtk/catppuccin-gtk.nix {
+        accents = [ "mauve"];
+        variant = "mocha";
+        tweaks = [ "rimless" "normal" ];
+      };
       name = "catppuccin-mocha-mauve-standard+rimless,normal";
     };
 
@@ -26,6 +31,7 @@
   };
 
   qt = {
+    enable = true;
     style.package = with pkgs; [
       darkly-qt5
       darkly
